@@ -13,7 +13,11 @@ namespace Startup
         static void Main()
         {
             Example1 NN = new Example1();
-            
+            Sigmoid sig = new Sigmoid();
+            NN.activationFunc = sig;
+
+            Console.WriteLine(NN.calcActivationFunc(3.2d));
+
             NN.network.PrintNetwork();
             
             Console.ReadKey();

@@ -7,8 +7,18 @@ using NeuralNetwork;
 
 namespace Exampler
 {
-    interface Interface_NNExample
+    public abstract class Interface_NNExample
     {
         Network network { get; set; }
+        Interface_ActivationFunction activationFunc { get; set; } = new Sigmoid();
+
+        public double calcActivationFunc(double val)
+        {
+            return (activationFunc.activationFunction(val));
+        }
+        public double calcActivationFunc_Prime(double val)
+        {
+            return (activationFunc.activationFunction_Prime(val));
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Exampler
 {
-    interface Interface_ActivationFunction
+    public interface Interface_ActivationFunction
     {
         double activationFunction(double val);
         double activationFunction_Prime(double val);

@@ -10,11 +10,23 @@ namespace Exampler
     public class Example1 : Interface_NNExample
     {
         public Network network { get; set; } = new Network();
+        public Interface_ActivationFunction activationFunc { get; set; }
 
         public Example1()
         {
             this.network = initializeNetwork();
         }
+
+        /*
+        public double calcActivationFunc(double val)
+        {
+            return (activationFunc.activationFunction(val));
+        }
+        public double calcActivationFunc_Prime(double val)
+        {
+            return (activationFunc.activationFunction_Prime(val));
+        }
+        */
 
         private Network initializeNetwork()
         {

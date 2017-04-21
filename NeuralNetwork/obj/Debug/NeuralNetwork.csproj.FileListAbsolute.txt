@@ -2,3 +2,4 @@ D:\Programming Software\Visual Studio Projects\NeuralNetwork\NeuralNetwork\bin\D
 D:\Programming Software\Visual Studio Projects\NeuralNetwork\NeuralNetwork\bin\Debug\NeuralNetwork.pdb
 D:\Programming Software\Visual Studio Projects\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.dll
 D:\Programming Software\Visual Studio Projects\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.pdb
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.csprojResolveAssemblyReference.cache
