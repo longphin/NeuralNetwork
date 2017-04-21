@@ -16,7 +16,7 @@ namespace NeuralNetwork
 
         public void AddNode(ref Node node)
         {
-            nodes.Add(node);
+            nodes.Add(node);            
         }
     }
 }

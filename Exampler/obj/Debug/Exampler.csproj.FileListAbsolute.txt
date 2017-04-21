@@ -1,0 +1,7 @@
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\bin\Debug\Exampler.dll
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\bin\Debug\Exampler.pdb
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\bin\Debug\NeuralNetwork.dll
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\bin\Debug\NeuralNetwork.pdb
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\obj\Debug\Exampler.csprojResolveAssemblyReference.cache
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\obj\Debug\Exampler.dll
+D:\Programming Software\Visual Studio Projects\NeuralNetwork\Exampler\obj\Debug\Exampler.pdb
