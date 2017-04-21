@@ -9,6 +9,7 @@ namespace NeuralNetwork
     public class Network
     {
         private List<Layer> layers = new List<Layer>();
+        public Interface_ActivationFunction activationFunc { get; set; }
 
         public Network()
         {
@@ -36,6 +37,15 @@ namespace NeuralNetwork
                     }
                 }
             }
+        }
+
+        public double calcActivationFunc(double val)
+        {
+            return (activationFunc.activationFunction(val));
+        }
+        public double calcActivationFunc_Prime(double val)
+        {
+            return (activationFunc.activationFunction_Prime(val));
         }
     }
 }

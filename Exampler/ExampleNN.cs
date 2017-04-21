@@ -10,7 +10,6 @@ namespace Exampler
     public class Example1 : Interface_NNExample
     {
         public Network network { get; set; } = new Network();
-        public Interface_ActivationFunction activationFunc { get; set; }
 
         public Example1()
         {

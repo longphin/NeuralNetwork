@@ -42,8 +42,6 @@
   <ItemGroup>
     <Compile Include="ActivationFunctions.cs" />
     <Compile Include="ExampleNN.cs" />
-    <Compile Include="Interface_ActivationFunction.cs" />
-    <Compile Include="Interface_NNExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
