@@ -8,7 +8,7 @@ namespace NeuralNetwork
 {
     public abstract class Interface_NNExample
     {
-        Network network { get; set; }
-        Interface_ActivationFunction activationFunc { get; set; }
+        public Network network { get; set; } = new Network();
+        public Interface_ActivationFunction activationFunc { get; set; }
     }
 }

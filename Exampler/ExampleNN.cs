@@ -7,25 +7,14 @@ using NeuralNetwork;
 
 namespace Exampler
 {
-    public class Example1 : Interface_NNExample
+    public class NN1 : Interface_NNExample
     {
-        public Network network { get; set; } = new Network();
+        //public Network network { get; set; } = new Network();
 
-        public Example1()
+        public NN1()
         {
-            this.network = initializeNetwork();
+            network = initializeNetwork();
         }
-
-        /*
-        public double calcActivationFunc(double val)
-        {
-            return (activationFunc.activationFunction(val));
-        }
-        public double calcActivationFunc_Prime(double val)
-        {
-            return (activationFunc.activationFunction_Prime(val));
-        }
-        */
 
         private Network initializeNetwork()
         {

@@ -10,6 +10,7 @@ namespace NeuralNetwork
     {
         private List<Layer> layers = new List<Layer>();
         public Interface_ActivationFunction activationFunc { get; set; }
+        private static readonly Random getrandom = new Random(250);
 
         public Network()
         {
@@ -39,13 +40,27 @@ namespace NeuralNetwork
             }
         }
 
-        public double calcActivationFunc(double val)
+        public void initializeWeights()
         {
-            return (activationFunc.activationFunction(val));
+            foreach(Layer layer in layers)
+            {
+                foreach(Node node in layer.nodes)
+                {
+                    foreach(Connector connector in node.connectors)
+                    {
+                        connector.weight = (double)getrandom.Next(1,100)/(double)1000;
+                    }
+                }
+            }
         }
-        public double calcActivationFunc_Prime(double val)
+
+        public double calcActivationFunc(double x)
         {
-            return (activationFunc.activationFunction_Prime(val));
+            return (activationFunc.activationFunction(x));
+        }
+        public double calcActivationFunc_Prime(double x)
+        {
+            return (activationFunc.activationFunction_Prime(x));
         }
     }
 }

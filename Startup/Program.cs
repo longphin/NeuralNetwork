@@ -12,14 +12,17 @@ namespace Startup
     {
         static void Main()
         {
-            Network NN = new Example1().network;
+            Network NN = new NN1().network;
             Interface_ActivationFunction sig = (Interface_ActivationFunction)new Sigmoid();
             NN.activationFunc = sig;
 
-            Console.WriteLine(NN.calcActivationFunc(3.2d));
+            NN.initializeWeights();
 
+            Data d = new SampleData1();
+
+            // print outs
+            Console.WriteLine(NN.calcActivationFunc(3.2d));
             NN.PrintNetwork();
-            
             Console.ReadKey();
         }
     }

@@ -9,15 +9,27 @@ namespace Exampler
 {
     public class Sigmoid : Interface_ActivationFunction
     {
-        public double activationFunction(double val)
+        public double activationFunction(double x)
         {
-            // sigmoid function
-            return (1 / (1 + Math.Pow(Math.E, val)));
+            return (1 / (1 + Math.Pow(Math.E, x)));
         }
 
-        public double activationFunction_Prime(double val)
+        public double activationFunction_Prime(double x)
         {
-            return (val);
+            return (Math.Pow(Math.E, x)/Math.Pow(Math.Pow(Math.E, x) + 1, 2));
+        }
+    }
+
+    public class HyperbolicTangent : Interface_ActivationFunction
+    {
+        public double activationFunction(double x)
+        {
+            return ((1 - Math.Pow(Math.E, -2*x))/(1+Math.Pow(Math.E, 2*x)));
+        }
+
+        public double activationFunction_Prime(double x)
+        {
+            return (Math.Pow(Math.E, -2 * x) * (4 * Math.Pow(Math.E, 2 * x) - 2 * Math.Pow(Math.E, 4 * x) + 2) / Math.Pow(Math.Pow(Math.E, 2 * x) + 1, 2));
         }
     }
 }

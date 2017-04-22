@@ -8,7 +8,7 @@ namespace NeuralNetwork
 {
     public interface Interface_ActivationFunction
     {
-        double activationFunction(double val);
-        double activationFunction_Prime(double val);
+        double activationFunction(double x);
+        double activationFunction_Prime(double x);
     }
 }

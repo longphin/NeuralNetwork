@@ -8,7 +8,8 @@ namespace NeuralNetwork
 {
     public class Node
     {
-        public float val { get; set; }
+        public double output { get; set; }
+        public double weightedsum { get; set; } = 0d;
         public List<Connector> connectors { get; set; } = new List<Connector>();
         public string name { get; set; }
 

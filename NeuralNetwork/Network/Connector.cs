@@ -9,9 +9,9 @@ namespace NeuralNetwork
     public class Connector
     {
         public Node To { get; set; } = new Node();
-        public float weight { get; set; }
+        public double weight { get; set; }
 
-        public Connector(ref Node To, float weight)
+        public Connector(ref Node To, double weight)
         {
             this.To = To;
             this.weight = weight;
