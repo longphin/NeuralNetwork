@@ -13,16 +13,23 @@ namespace Startup
         static void Main()
         {
             Network NN = new NN1().network;
-            Interface_ActivationFunction sig = (Interface_ActivationFunction)new Sigmoid();
+            IActivationFunction sig = new Sigmoid();
             NN.activationFunc = sig;
 
             NN.initializeWeights();
 
-            Data d = new SampleData1();
+            IData d = new SampleData1();
+            
+            for (int i = 0; i < d.GetSize(); i++)
+            {
+                NN.forwardPropogate(d.inputList[i]);
+                
+                NN.backPropogate(d.outputList[i]);
+            }
 
             // print outs
-            Console.WriteLine(NN.calcActivationFunc(3.2d));
             NN.PrintNetwork();
+            
             Console.ReadKey();
         }
     }

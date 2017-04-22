@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NeuralNetwork
 {
-    public interface Interface_ActivationFunction
+    public interface IActivationFunction
     {
         double activationFunction(double x);
         double activationFunction_Prime(double x);

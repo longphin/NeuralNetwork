@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NeuralNetwork
 {
-    public abstract class Interface_NNExample
+    public abstract class INeuralNetwork
     {
         public Network network { get; set; } = new Network();
-        public Interface_ActivationFunction activationFunc { get; set; }
+        public IActivationFunction activationFunc { get; set; }
     }
 }

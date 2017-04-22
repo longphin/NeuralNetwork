@@ -7,7 +7,7 @@ using NeuralNetwork;
 
 namespace Exampler
 {
-    public class Sigmoid : Interface_ActivationFunction
+    public class Sigmoid : IActivationFunction
     {
         public double activationFunction(double x)
         {
@@ -20,7 +20,7 @@ namespace Exampler
         }
     }
 
-    public class HyperbolicTangent : Interface_ActivationFunction
+    public class HyperbolicTangent : IActivationFunction
     {
         public double activationFunction(double x)
         {

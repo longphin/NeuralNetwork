@@ -8,10 +8,12 @@ namespace NeuralNetwork
 {
     public class Node
     {
+        public double weightedSum { get; set; }
         public double output { get; set; }
-        public double weightedsum { get; set; } = 0d;
-        public List<Connector> connectors { get; set; } = new List<Connector>();
+        public List<Connector> forwardConnectors { get; set; } = new List<Connector>();
+        public List<Connector> backwardConnectors { get; set; } = new List<Connector>();
         public string name { get; set; }
+        public double error { get; set; }
 
         public Node()
         {
@@ -23,15 +25,13 @@ namespace NeuralNetwork
             this.name = name;
         }
 
-        public void AddConnector(ref Connector newConnector)
+        public void AddForwardConnector(ref Connector newConnector)
         {
-            connectors.Add(newConnector);
+            forwardConnectors.Add(newConnector);
         }
-        /*
-        public void AddConnector(ref List<Connector> newConnectors)
+        public void AddBackwardConnector(ref Connector newConnector)
         {
-            connectors.AddRange(newConnectors);
+            backwardConnectors.Add(newConnector);
         }
-        */
     }
 }

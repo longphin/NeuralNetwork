@@ -8,11 +8,13 @@ namespace NeuralNetwork
 {
     public class Connector
     {
+        public Node From { get; set; } = new Node();
         public Node To { get; set; } = new Node();
         public double weight { get; set; }
 
-        public Connector(ref Node To, double weight)
+        public Connector(ref Node From, ref Node To, double weight)
         {
+            this.From = From;
             this.To = To;
             this.weight = weight;
         }
