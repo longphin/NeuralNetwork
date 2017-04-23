@@ -11,7 +11,7 @@ namespace NeuralNetwork
         public List<Layer> layers { get; set; } = new List<Layer>();
         public IActivationFunction activationFunc { get; set; }
         private static readonly Random getrandom = new Random(250);
-        public static double alpha { get; set; } = 0.5d;
+        public static double alpha { get; set; } = 0.05d;
 
         public Network()
         {
@@ -41,17 +41,6 @@ namespace NeuralNetwork
             }
         }
 
-        public void PrintSimpleNetwork()
-        {
-            foreach(Layer layer in layers)
-            {
-                foreach(Node node in layer.nodes)
-                {
-                    Console.Write(node.name);
-                    Console.WriteLine("");
-                }
-            }
-        }
         public void initializeWeights()
         {
             foreach(Layer layer in layers)
@@ -95,12 +84,17 @@ namespace NeuralNetwork
         public void backPropogate(outputVector trueOutput)
         {
             // initialize error layer
-            for(int i = 0; i<trueOutput.output.Count; i++)
+            double TotalError = 0;
+            for (int i = 0; i<trueOutput.output.Count; i++)
             {
                 Node node = layers[layers.Count - 1].nodes[i];
-                layers[layers.Count - 1].nodes[i].error = calcActivationFunc_Prime(node.weightedSum) * (trueOutput.output[i] - node.output);
+                node.error = calcActivationFunc_Prime(node.weightedSum) * (trueOutput.output[i] - node.output);
+
+                TotalError += node.error;
             }
-            
+
+            //Console.WriteLine("error: " + TotalError.ToString());
+
             if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
 
             // back propogate
@@ -137,6 +131,43 @@ namespace NeuralNetwork
         public double calcActivationFunc_Prime(double x)
         {
             return (activationFunc.activationFunction_Prime(x));
+        }
+        public void Test(IDataTest data)
+        {
+            if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
+
+            for (int j = 0; j<data.inputList.Count; j++)
+            {
+                for (int i = 0; i < data.inputList[j].input.Count; i++)
+                {
+                    layers[0].nodes[i].output = data.inputList[j].input[i];
+                }
+
+                // forward propogate
+                for (int i = 1; i < layers.Count; i++)
+                {
+                    foreach (Node node in layers[i].nodes)
+                    {
+                        double sum = 0;
+                        foreach (Connector con in node.backwardConnectors)
+                        {
+                            sum += con.weight * con.From.output;
+                        }
+                        node.weightedSum = sum;
+                        node.output = calcActivationFunc(sum);
+                    }
+                }
+
+                // print out results
+                double TotalError = 0d;
+                for(int i = 0; i<layers[layers.Count - 1].nodes.Count; i++)
+                {
+                    Node node = layers[layers.Count - 1].nodes[i];
+                    Console.WriteLine(node.name + " guess " + node.output.ToString() + " : " + data.outputList[j].output[i].ToString());
+                    TotalError += Math.Pow(node.output - data.outputList[j].output[i], 2);
+                }
+                Console.WriteLine("Total Error: " + TotalError.ToString());
+            }
         }
     }
 }

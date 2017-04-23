@@ -12,41 +12,26 @@ namespace Startup
     {
         static void Main()
         {
-            /*
-            Network NN = new NN1().network;
-            IActivationFunction sig = new Sigmoid();
-            NN.activationFunc = sig;
-
-            NN.initializeWeights();
-
-            IData d = new SampleData1();
-            
-            for (int i = 0; i < d.GetSize(); i++)
-            {
-                NN.forwardPropogate(d.inputList[i]);
-                
-                NN.backPropogate(d.outputList[i]);
-            }
-
-            // print outs
-            NN.PrintNetwork();
-            */
-
-            IData d = new SampleData1(2);
+            //var d = new SampleData1(0);
+            var d = new SampleData2(4);
             Network network = d.network;
 
-            IActivationFunction sig = new Sigmoid();
+            //IActivationFunction sig = new Sigmoid();
+            IActivationFunction sig = new HyperbolicTangent();
             network.activationFunc = sig;
             network.initializeWeights();
 
-            for (int i = 0; i < d.GetSize(); i++)
+            for (int j = 0; j < 10000; j++)
             {
-                network.forwardPropogate(d.inputList[i]);
+                for (int i = 0; i < d.GetSize(); i++)
+                {
+                    network.forwardPropogate(d.inputList[i]);
 
-                network.backPropogate(d.outputList[i]);
+                    network.backPropogate(d.outputList[i]);
+                }
             }
 
-            // print outs
+            network.Test(d.Test(1));
             network.PrintNetwork();
 
             Console.ReadKey();

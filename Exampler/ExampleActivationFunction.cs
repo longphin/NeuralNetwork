@@ -11,7 +11,7 @@ namespace Exampler
     {
         public double activationFunction(double x)
         {
-            return (1 / (1 + Math.Pow(Math.E, x)));
+            return (1 / (1 + Math.Pow(Math.E, -x)));
         }
 
         public double activationFunction_Prime(double x)

@@ -32,6 +32,13 @@ namespace NeuralNetwork
         }
     }
 
+    public class IDataTest
+    {
+        public List<inputVector> inputList = new List<inputVector>();
+        public List<outputVector> outputList = new List<outputVector>();
+
+        public IDataTest() { }
+    }
     public abstract class IData
     {
         private static readonly char[] nodeNamePrefix = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
@@ -43,7 +50,7 @@ namespace NeuralNetwork
         {
             return (inputList.Count);
         }
-
+        
         public Network createNetwork(int inputVectorLength, int outputVectorLength, int numHiddenLayers)
         {
             Network network = new Network();
