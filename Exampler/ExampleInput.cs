@@ -9,7 +9,7 @@ namespace Exampler
 {
     public class SampleData1 : IData
     {
-        public SampleData1()
+        public SampleData1(int numHiddenLayers)
         {
             // input
             inputList.Add(new inputVector(new List<double> { 0, 0, 1 }));
@@ -22,6 +22,8 @@ namespace Exampler
             outputList.Add(new outputVector(new List<double> { 1, 1 }));
             outputList.Add(new outputVector(new List<double> { 1, 0 }));
             outputList.Add(new outputVector(new List<double> { 1, 1 }));
+
+            network = createNetwork(3, 2, numHiddenLayers);
         }
     }
 }

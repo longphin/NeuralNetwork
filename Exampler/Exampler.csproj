@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="ExampleActivationFunction.cs" />
     <Compile Include="ExampleInput.cs" />
-    <Compile Include="ExampleNN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

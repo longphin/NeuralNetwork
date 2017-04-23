@@ -12,6 +12,7 @@ namespace Startup
     {
         static void Main()
         {
+            /*
             Network NN = new NN1().network;
             IActivationFunction sig = new Sigmoid();
             NN.activationFunc = sig;
@@ -29,7 +30,25 @@ namespace Startup
 
             // print outs
             NN.PrintNetwork();
-            
+            */
+
+            IData d = new SampleData1(2);
+            Network network = d.network;
+
+            IActivationFunction sig = new Sigmoid();
+            network.activationFunc = sig;
+            network.initializeWeights();
+
+            for (int i = 0; i < d.GetSize(); i++)
+            {
+                network.forwardPropogate(d.inputList[i]);
+
+                network.backPropogate(d.outputList[i]);
+            }
+
+            // print outs
+            network.PrintNetwork();
+
             Console.ReadKey();
         }
     }

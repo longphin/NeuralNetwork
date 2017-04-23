@@ -12,7 +12,7 @@ namespace NeuralNetwork
         public Node To { get; set; } = new Node();
         public double weight { get; set; }
 
-        public Connector(ref Node From, ref Node To, double weight)
+        public Connector(Node From, Node To, double weight)
         {
             this.From = From;
             this.To = To;

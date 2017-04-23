@@ -8,7 +8,7 @@ namespace NeuralNetwork
 {
     public class Network
     {
-        private List<Layer> layers = new List<Layer>();
+        public List<Layer> layers { get; set; } = new List<Layer>();
         public IActivationFunction activationFunc { get; set; }
         private static readonly Random getrandom = new Random(250);
         public static double alpha { get; set; } = 0.5d;
@@ -16,8 +16,8 @@ namespace NeuralNetwork
         public Network()
         {
         }
-
-        public void AddLayer(ref Layer layer)
+        
+        public void AddLayer(Layer layer)
         {
             layers.Add(layer);
         }
@@ -41,6 +41,17 @@ namespace NeuralNetwork
             }
         }
 
+        public void PrintSimpleNetwork()
+        {
+            foreach(Layer layer in layers)
+            {
+                foreach(Node node in layer.nodes)
+                {
+                    Console.Write(node.name);
+                    Console.WriteLine("");
+                }
+            }
+        }
         public void initializeWeights()
         {
             foreach(Layer layer in layers)

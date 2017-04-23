@@ -43,7 +43,6 @@
     <Compile Include="Interface\IData.cs" />
     <Compile Include="Network\Connector.cs" />
     <Compile Include="Interface\IActivationFunction.cs" />
-    <Compile Include="Interface\INeuralNetwork.cs" />
     <Compile Include="Network\Layer.cs" />
     <Compile Include="Network\Network.cs" />
     <Compile Include="Network\Node.cs" />

@@ -25,11 +25,11 @@ namespace NeuralNetwork
             this.name = name;
         }
 
-        public void AddForwardConnector(ref Connector newConnector)
+        public void AddForwardConnector(Connector newConnector)
         {
             forwardConnectors.Add(newConnector);
         }
-        public void AddBackwardConnector(ref Connector newConnector)
+        public void AddBackwardConnector(Connector newConnector)
         {
             backwardConnectors.Add(newConnector);
         }
