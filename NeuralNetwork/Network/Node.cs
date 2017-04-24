@@ -25,6 +25,12 @@ namespace NeuralNetwork
             this.name = name;
         }
 
+        public Node(string name, double output, bool isBiasNode)
+        {
+            this.name = name;
+            this.output = output;
+        }
+
         public void AddForwardConnector(Connector newConnector)
         {
             forwardConnectors.Add(newConnector);

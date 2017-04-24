@@ -165,7 +165,7 @@ namespace NeuralNetwork
                     Node node = layers[layers.Count - 1].nodes[i];
                     Console.WriteLine(node.name + " guess " + node.output.ToString() + " : " + data.outputList[j].output[i].ToString());
                     TotalError += Math.Pow(node.output - data.outputList[j].output[i], 2);
-                }
+                    }
                 Console.WriteLine("Total Error: " + TotalError.ToString());
             }
         }
