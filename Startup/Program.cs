@@ -13,7 +13,7 @@ namespace Startup
         static void Main()
         {
             //var d = new SampleData1(0);
-            var d = new SampleData2(2, false);
+            var d = new SampleData2(2);
             //IActivationFunction sig = new Sigmoid();
             IActivationFunction sig = new ArcTan();
 
@@ -31,8 +31,8 @@ namespace Startup
                 }
             }
 
-            network.Test(d.Test(1));
             network.PrintNetwork();
+            network.Test(d.Test(1));
 
             Console.ReadKey();
         }

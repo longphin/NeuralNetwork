@@ -10,7 +10,7 @@ namespace Exampler
     // simple linear data
     public class SampleData1 : IData
     {
-        public SampleData1(int numHiddenLayers, bool addBiasNode)
+        public SampleData1(int numHiddenLayers)
         {
             // input
             inputList.Add(new inputVector(new List<double> { 0, 0, 1 }));
@@ -24,7 +24,7 @@ namespace Exampler
             outputList.Add(new outputVector(new List<double> { 1 }));
             outputList.Add(new outputVector(new List<double> { 0 }));
 
-            network = createNetwork(inputList[0].input.Count, outputList[0].output.Count, numHiddenLayers, addBiasNode);
+            network = createNetwork(inputList[0].input.Count, outputList[0].output.Count, numHiddenLayers);
         }
 
         public IDataTest Test(int whichTest)
@@ -59,7 +59,7 @@ namespace Exampler
     // simple nonlinear data
     public class SampleData2 : IData
     {
-        public SampleData2(int numHiddenLayers, bool addBiasNode)
+        public SampleData2(int numHiddenLayers)
         {
             // input
             inputList.Add(new inputVector(new List<double> { 0, 0, 1 }));
@@ -73,7 +73,7 @@ namespace Exampler
             outputList.Add(new outputVector(new List<double> { 1 }));
             outputList.Add(new outputVector(new List<double> { 0 }));
 
-            network = createNetwork(inputList[0].input.Count, outputList[0].output.Count, numHiddenLayers, addBiasNode);
+            network = createNetwork(inputList[0].input.Count, outputList[0].output.Count, numHiddenLayers);
         }
 
         public IDataTest Test(int whichTest)

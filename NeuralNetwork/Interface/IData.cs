@@ -51,7 +51,7 @@ namespace NeuralNetwork
             return (inputList.Count);
         }
         
-        public Network createNetwork(int inputVectorLength, int outputVectorLength, int numHiddenLayers, bool addBias)
+        public Network createNetwork(int inputVectorLength, int outputVectorLength, int numHiddenLayers)
         {
             Network network = new Network();
 
@@ -62,6 +62,7 @@ namespace NeuralNetwork
                 Node n = new Node(nodeNamePrefix[0] + i.ToString());
                 inpLayer.AddNode(n);
             }
+            inpLayer.AddNode(new Node(nodeNamePrefix[0] + ".bias", 1, true));
             network.AddLayer(inpLayer);
             // create hidden layers
             for (int numLayer = 0; numLayer < numHiddenLayers; numLayer++)
@@ -75,6 +76,8 @@ namespace NeuralNetwork
                     hiddenLayer.AddNode(n);
                 }
 
+                Node bias = new Node(res + ".bias", 1, true);
+                hiddenLayer.AddNode(bias);
                 network.AddLayer(hiddenLayer);
             }
             // create connectors from input to hidden layers, and from hidden to hidden layers
@@ -84,9 +87,12 @@ namespace NeuralNetwork
                 {
                     foreach (Node n2 in network.layers[i + 1].nodes)
                     {
-                        Connector con = new Connector(n, n2, 0.5d);
-                        n.AddForwardConnector(con);
-                        n2.AddBackwardConnector(con);
+                        if (n2.isBiasNode == false)
+                        {
+                            Connector con = new Connector(n, n2, 0.5d);
+                            n.AddForwardConnector(con);
+                            n2.AddBackwardConnector(con);
+                        }
                     }
                 }
             }
@@ -109,33 +115,6 @@ namespace NeuralNetwork
                     n.AddForwardConnector(con);
                     n2.AddBackwardConnector(con);
                 }
-            }
-
-            // Now add bias node and connect it to all other nodes
-            if (addBias == true)
-            {
-                Node bias = new Node("bias", 1d, true);
-                for (int i = 1; i < numHiddenLayers + 2; i++)
-                {
-                    foreach (Node node in network.layers[i].nodes)
-                    {
-                        Connector con = new Connector(bias, node, 0.5d);
-                        bias.AddForwardConnector(con);
-                        node.AddBackwardConnector(con);
-                    }
-                }
-                /*
-                foreach (Layer layer in network.layers)
-                {
-                    foreach (Node node in layer.nodes)
-                    {
-                        Connector con = new Connector(bias, node, 0.5d);
-                        bias.AddForwardConnector(con);
-                        node.AddBackwardConnector(con);
-                    }
-                }
-                */
-                inpLayer.AddNode(bias);
             }
 
             return (network);

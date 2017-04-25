@@ -49,7 +49,7 @@ namespace NeuralNetwork
                 {
                     foreach(Connector connector in node.forwardConnectors)
                     {
-                        connector.weight = (double)getrandom.Next(1,100)/(double)1000;
+                        connector.weight = (double)getrandom.Next(1,100)/(double)10000;
                     }
                 }
             }
@@ -93,7 +93,7 @@ namespace NeuralNetwork
                 TotalError += node.error;
             }
 
-            //Console.WriteLine("error: " + TotalError.ToString());
+            //Console.WriteLine("iteration error: " + TotalError.ToString());
 
             if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
 

@@ -14,6 +14,7 @@ namespace NeuralNetwork
         public List<Connector> backwardConnectors { get; set; } = new List<Connector>();
         public string name { get; set; }
         public double error { get; set; }
+        public bool isBiasNode { get; set; } = false;
 
         public Node()
         {
@@ -29,6 +30,7 @@ namespace NeuralNetwork
         {
             this.name = name;
             this.output = output;
+            this.isBiasNode = isBiasNode;
         }
 
         public void AddForwardConnector(Connector newConnector)
