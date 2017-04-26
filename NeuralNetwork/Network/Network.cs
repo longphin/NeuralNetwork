@@ -23,20 +23,13 @@ namespace NeuralNetwork
         }
 
         public void PrintNetwork()
-        {
+        {            
+            // print other nodes
             foreach(Layer layer in layers)
             {
                 foreach(Node node in layer.nodes)
                 {
-                    if (!node.forwardConnectors.Any()) // then is end point
-                        Console.WriteLine("endpoint " + node.name + " (" + node.output + ")");
-                    else
-                        Console.WriteLine(node.name + " (" + node.output + ")");
-
-                    foreach (Connector connector in node.forwardConnectors)
-                    {
-                        Console.WriteLine(" -> " + connector.To.name + " x" + connector.weight.ToString() + " (" + connector.To.output + ")");
-                    }
+                    node.PrintNode();
                 }
             }
         }
@@ -49,7 +42,7 @@ namespace NeuralNetwork
                 {
                     foreach(Connector connector in node.forwardConnectors)
                     {
-                        connector.weight = (double)getrandom.Next(1,100)/(double)10000;
+                        connector.weight = (double)getrandom.Next(1,100)/(double)1000;
                     }
                 }
             }
@@ -70,13 +63,16 @@ namespace NeuralNetwork
             {
                 foreach(Node node in layers[i].nodes)
                 {
-                    double sum = 0;
-                    foreach(Connector con in node.backwardConnectors)
+                    if (node.isBiasNode == false)
                     {
-                        sum += con.weight * con.From.output;
+                        double sum = 0;
+                        foreach (Connector con in node.backwardConnectors)
+                        {
+                            sum += con.weight * con.From.output;
+                        }
+                        node.weightedSum = sum;
+                        node.output = calcActivationFunc(sum);
                     }
-                    node.weightedSum = sum;
-                    node.output = calcActivationFunc(sum);
                 }
             }
         }
@@ -93,12 +89,12 @@ namespace NeuralNetwork
                 TotalError += node.error;
             }
 
-            //Console.WriteLine("iteration error: " + TotalError.ToString());
+            //Console.WriteLine("error: " + TotalError.ToString());
 
             if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
 
             // back propogate
-            for(int i = layers.Count-2; i>=0; i--)
+            for (int i = layers.Count-2; i>=0; i--)
             {
                 foreach(Node node in layers[i].nodes)
                 {
@@ -138,34 +134,21 @@ namespace NeuralNetwork
 
             for (int j = 0; j<data.inputList.Count; j++)
             {
-                for (int i = 0; i < data.inputList[j].input.Count; i++)
-                {
-                    layers[0].nodes[i].output = data.inputList[j].input[i];
-                }
-
-                // forward propogate
-                for (int i = 1; i < layers.Count; i++)
-                {
-                    foreach (Node node in layers[i].nodes)
-                    {
-                        double sum = 0;
-                        foreach (Connector con in node.backwardConnectors)
-                        {
-                            sum += con.weight * con.From.output;
-                        }
-                        node.weightedSum = sum;
-                        node.output = calcActivationFunc(sum);
-                    }
-                }
+                forwardPropogate(data.inputList[j]);
 
                 // print out results
                 double TotalError = 0d;
+                int nonBiasNodeIterator = 0;
                 for(int i = 0; i<layers[layers.Count - 1].nodes.Count; i++)
                 {
                     Node node = layers[layers.Count - 1].nodes[i];
-                    Console.WriteLine(node.name + " guess " + node.output.ToString() + " : " + data.outputList[j].output[i].ToString());
-                    TotalError += Math.Pow(node.output - data.outputList[j].output[i], 2);
+                    if (node.isBiasNode == false)
+                    {
+                        Console.WriteLine(node.name + " guess " + node.output.ToString() + " : " + data.outputList[j].output[nonBiasNodeIterator].ToString());
+                        TotalError += Math.Pow(node.output - data.outputList[j].output[nonBiasNodeIterator], 2);
+                        nonBiasNodeIterator += 1;
                     }
+                }
                 Console.WriteLine("Total Error: " + TotalError.ToString());
             }
         }

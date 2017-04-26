@@ -14,7 +14,7 @@ namespace NeuralNetwork
         public List<Connector> backwardConnectors { get; set; } = new List<Connector>();
         public string name { get; set; }
         public double error { get; set; }
-        public bool isBiasNode { get; set; } = false;
+        public bool isBiasNode { get; set; }
 
         public Node()
         {
@@ -40,6 +40,19 @@ namespace NeuralNetwork
         public void AddBackwardConnector(Connector newConnector)
         {
             backwardConnectors.Add(newConnector);
+        }
+
+        public void PrintNode()
+        {
+            if (!forwardConnectors.Any()) // then is end point
+                Console.WriteLine("endpoint " + name + " (" + output + ")");
+            else
+                Console.WriteLine(name + " (" + output + ")");
+
+            foreach (Connector connector in forwardConnectors)
+            {
+                Console.WriteLine(" -> " + connector.To.name + " x" + connector.weight.ToString() + " (" + connector.To.output + ")");
+            }
         }
     }
 }

@@ -51,7 +51,7 @@ namespace NeuralNetwork
             return (inputList.Count);
         }
         
-        public Network createNetwork(int inputVectorLength, int outputVectorLength, int numHiddenLayers)
+        public Network createNetwork(int inputVectorLength, int outputVectorLength, int numHiddenLayers, bool addBias)
         {
             Network network = new Network();
 
@@ -62,7 +62,7 @@ namespace NeuralNetwork
                 Node n = new Node(nodeNamePrefix[0] + i.ToString());
                 inpLayer.AddNode(n);
             }
-            inpLayer.AddNode(new Node(nodeNamePrefix[0] + ".bias", 1, true));
+            inpLayer.AddNode(new Node(nodeNamePrefix[0] + ".bias", 1d, true));
             network.AddLayer(inpLayer);
             // create hidden layers
             for (int numLayer = 0; numLayer < numHiddenLayers; numLayer++)
@@ -75,9 +75,7 @@ namespace NeuralNetwork
                     Node n = new Node(res + i.ToString());
                     hiddenLayer.AddNode(n);
                 }
-
-                Node bias = new Node(res + ".bias", 1, true);
-                hiddenLayer.AddNode(bias);
+                hiddenLayer.AddNode(new Node(res + ".bias", 1d, true));
                 network.AddLayer(hiddenLayer);
             }
             // create connectors from input to hidden layers, and from hidden to hidden layers
@@ -87,12 +85,9 @@ namespace NeuralNetwork
                 {
                     foreach (Node n2 in network.layers[i + 1].nodes)
                     {
-                        if (n2.isBiasNode == false)
-                        {
-                            Connector con = new Connector(n, n2, 0.5d);
-                            n.AddForwardConnector(con);
-                            n2.AddBackwardConnector(con);
-                        }
+                        Connector con = new Connector(n, n2, 0.5d);
+                        n.AddForwardConnector(con);
+                        n2.AddBackwardConnector(con);
                     }
                 }
             }
@@ -117,6 +112,33 @@ namespace NeuralNetwork
                 }
             }
 
+            /*
+            // connect bias node to other nodes excluding input layer
+            for (int i = 1; i < network.layers.Count; i++)
+            {
+                foreach (Node n in network.layers[i].nodes)
+                {
+                    Connector con = new Connector(network.bias, n, 0.5d);
+                    network.bias.AddForwardConnector(con);
+                    n.AddBackwardConnector(con);
+                }
+            }
+            // Now add bias node and connect it to all other nodes
+            if (addBias == true)
+            {
+                Node bias = new Node("bias", 1d, true);
+                for (int i = 1; i < numHiddenLayers + 2; i++)
+                {
+                    foreach (Node node in network.layers[i].nodes)
+                    {
+                        Connector con = new Connector(bias, node, 0.5d);
+                        bias.AddForwardConnector(con);
+                        node.AddBackwardConnector(con);
+                    }
+                }
+                inpLayer.AddNode(bias);
+            }
+            */
             return (network);
         }
     }

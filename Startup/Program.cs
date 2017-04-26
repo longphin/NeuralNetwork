@@ -13,13 +13,15 @@ namespace Startup
         static void Main()
         {
             //var d = new SampleData1(0);
-            var d = new SampleData2(2);
+            var d = new SampleData2(2, true);
             //IActivationFunction sig = new Sigmoid();
             IActivationFunction sig = new ArcTan();
 
             Network network = d.network;
             network.activationFunc = sig;
             network.initializeWeights();
+            
+            network.PrintNetwork();
 
             for (int j = 0; j < 10000; j++)
             {
@@ -31,8 +33,8 @@ namespace Startup
                 }
             }
 
-            network.PrintNetwork();
             network.Test(d.Test(1));
+            network.PrintNetwork();
 
             Console.ReadKey();
         }
