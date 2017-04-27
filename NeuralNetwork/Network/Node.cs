@@ -8,13 +8,13 @@ namespace NeuralNetwork
 {
     public class Node
     {
-        public double weightedSum { get; set; }
+        public double weightedSum { get; set; } = 0;
         public double output { get; set; }
         public List<Connector> forwardConnectors { get; set; } = new List<Connector>();
         public List<Connector> backwardConnectors { get; set; } = new List<Connector>();
         public string name { get; set; }
         public double error { get; set; }
-        public bool isBiasNode { get; set; }
+        public bool isBiasNode { get; set; } = false;
 
         public Node()
         {
@@ -45,13 +45,13 @@ namespace NeuralNetwork
         public void PrintNode()
         {
             if (!forwardConnectors.Any()) // then is end point
-                Console.WriteLine("endpoint " + name + " (" + output + ")");
+                Console.WriteLine("endpoint " + name + " (" + output.ToString() + ")");
             else
-                Console.WriteLine(name + " (" + output + ")");
+                Console.WriteLine(name + " (" + output.ToString() + ") " + weightedSum.ToString());
 
             foreach (Connector connector in forwardConnectors)
             {
-                Console.WriteLine(" -> " + connector.To.name + " x" + connector.weight.ToString() + " (" + connector.To.output + ")");
+                Console.WriteLine(" -> " + connector.To.name + " x" + connector.weight.ToString() + " (" + connector.To.output.ToString() + ") " + connector.To.weightedSum.ToString());
             }
         }
     }

@@ -12,6 +12,7 @@ namespace NeuralNetwork
         public IActivationFunction activationFunc { get; set; }
         private static readonly Random getrandom = new Random(250);
         public static double alpha { get; set; } = 0.05d;
+        public Node biasnode { get; set; }// = new Node();
 
         public Network()
         {
@@ -23,8 +24,9 @@ namespace NeuralNetwork
         }
 
         public void PrintNetwork()
-        {            
+        {
             // print other nodes
+            biasnode.PrintNode();
             foreach(Layer layer in layers)
             {
                 foreach(Node node in layer.nodes)
@@ -51,9 +53,14 @@ namespace NeuralNetwork
         public void forwardPropogate(inputVector inputData)
         {
             // initialize input layer
-            for (int i = 0; i < inputData.input.Count; i++)
+            int nonBiasNodeIterator = 0;
+            for (int i = 0; i < layers[0].nodes.Count; i++)
             {
-                layers[0].nodes[i].output = inputData.input[i];
+                if(layers[0].nodes[i].isBiasNode == false)
+                {
+                    layers[0].nodes[i].output = inputData.input[nonBiasNodeIterator];
+                    nonBiasNodeIterator += 1;
+                }
             }
 
             if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
@@ -81,17 +88,23 @@ namespace NeuralNetwork
         {
             // initialize error layer
             double TotalError = 0;
-            for (int i = 0; i<trueOutput.output.Count; i++)
+            int nonBiasNodeIterator = 0;
+            for (int i = 0; i<layers[layers.Count - 1].nodes.Count; i++)
             {
                 Node node = layers[layers.Count - 1].nodes[i];
-                node.error = calcActivationFunc_Prime(node.weightedSum) * (trueOutput.output[i] - node.output);
+                if (node.isBiasNode == false) // this check shouldn't be needed
+                {
+                    node.error = calcActivationFunc_Prime(node.weightedSum) * (trueOutput.output[nonBiasNodeIterator] - node.output);
 
-                TotalError += node.error;
+                    TotalError += node.error;
+                    nonBiasNodeIterator += 1;
+                }
             }
+            Console.WriteLine(TotalError.ToString());
 
             //Console.WriteLine("error: " + TotalError.ToString());
 
-            if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
+            //if (layers.Count < 2) return; // If there is only 1 layer (which shouldn't happen), then do nothing.
 
             // back propogate
             for (int i = layers.Count-2; i>=0; i--)
@@ -117,6 +130,11 @@ namespace NeuralNetwork
                        con.weight += alpha * node.output * con.To.error;
                     }
                 }
+            }
+            // update weights for bias node
+            foreach(Connector con in biasnode.forwardConnectors)
+            {
+                con.weight += alpha * biasnode.output * con.To.error;
             }
         }
 
