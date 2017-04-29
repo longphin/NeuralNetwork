@@ -36,11 +36,6 @@ namespace NeuralNetwork
             }
         }
 
-        private double GetRandomDouble(Random rnd, double min, double max)
-        {
-            return (rnd.NextDouble() * (max - min) + min);
-        }
-
         public void initializeWeights()
         {
             foreach(Layer layer in layers)
@@ -49,13 +44,9 @@ namespace NeuralNetwork
                 {
                     foreach(Connector connector in node.forwardConnectors)
                     {
-                        connector.weight = GetRandomDouble(getrandom, -1d/Math.Sqrt((double)layer.nodes.Count), 1d/Math.Sqrt((double)layer.nodes.Count));//(double)getrandom.Next(1,100)/(double)200;
+                        connector.weight = (double)getrandom.Next(1,100)/(double)1000;
                     }
                 }
-            }
-            foreach(Connector con in biasnode.forwardConnectors)
-            {
-                con.weight = GetRandomDouble(getrandom, -.3, .3); //(double)getrandom.Next(1, 100) / (double)200;
             }
         }
 
@@ -109,7 +100,7 @@ namespace NeuralNetwork
                     nonBiasNodeIterator += 1;
                 }
             }
-            //Console.WriteLine(TotalError.ToString());
+            Console.WriteLine(TotalError.ToString());
 
             //Console.WriteLine("error: " + TotalError.ToString());
 
@@ -143,7 +134,7 @@ namespace NeuralNetwork
             // update weights for bias node
             foreach(Connector con in biasnode.forwardConnectors)
             {
-                con.weight += alpha * con.To.error;
+                con.weight += alpha * biasnode.output * con.To.error;
             }
         }
 
